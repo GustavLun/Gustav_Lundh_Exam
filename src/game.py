@@ -1,3 +1,8 @@
+from email.policy import default
+
+import pickups
+import player
+from pickups import inventory, Item
 from src.grid import Grid
 from src.player import Player
 from src import pickups
@@ -7,7 +12,7 @@ from src import pickups
 class GameState:
     """Samla spelets variabler i en klass."""
     def __init__(self):
-        self.player = Player(2, 1)
+        self.player = Player(16, 5) # Ändrade x och Y för att få spelaren att börja närmare mitten.
         self.score = 0
         self.inventory = []
 
@@ -17,7 +22,6 @@ class GameState:
         pickups.randomize(self.g)
 
 
-# TODO: flytta denna till en annan fil
 def print_status(game_grid, state):
     """Visa spelvärlden och antal poäng."""
     print("--------------------------------------")
@@ -31,23 +35,47 @@ def start(state):
     while not command.casefold() in ["q", "x"]:
         print_status(state.g, state)
 
-        command = input("Use WASD to move, Q/X to quit. ")
+        command = input("Use WASD to move, I to show inventory and Q/X to quit  ")
         command = command.casefold()[:1]
+        dx, dy = 0, 0
+        if command == "w":# Funktionen för move player fanns i player men presenterar den mer easily digested
+            dx,dy = 0, -1
+            state.score -= 1 # Floor is lava, alla steg spelaren ta minskar score med 1.
+        elif command == "a":
+            dx,dy = -1, 0
+            state.score -= 1
+        elif command == "s":
+            dx,dy = 0,1
+            state.score -= 1
+        elif command == "d":
+            dx,dy = 1,0
+            state.score -= 1
+        elif command == "i":
+            print("Här är föremålen du plockat på dig:")
+            for Item in inventory:
+                print(Item.name)
+        else:
+            print("Invalid move.")
+            continue
 
-        if command == "d" and state.player.can_move(1, 0, state.g):  # move right
-            # TODO: skapa funktioner, så vi inte behöver upprepa så mycket kod för riktningarna "W,A,S"
-            maybe_item = state.g.get(state.player.pos_x + 1, state.player.pos_y)
-            state.player.move(1, 0)
 
-            if isinstance(maybe_item, pickups.Item):
-                # we found something
-                state.score += maybe_item.value
-                print(f"You found a {maybe_item.name}, +{maybe_item.value} points.")
-                #g.set(player.pos_x, player.pos_y, g.empty)
-                state.g.clear(state.player.pos_x, state.player.pos_y)
+        target_x = state.player.pos_x + dx # Nya variablar så att koden under maybe_item blir lättare att förstå.
+        target_y = state.player.pos_y + dy
+        maybe_item = state.g.get(target_x, target_y)
+
+        if isinstance(maybe_item,pickups.Item):
+            state.score += maybe_item.value
+            print(f"You found {maybe_item.name}, värt {maybe_item.value} poäng") # Skriver ut item namn samt poäng.
+            state.g.clear(target_x, target_y)
+            inventory.append(maybe_item)
 
 
-    # Hit kommer vi när while-loopen slutar
+        if state.player.can_move(dx, dy, state.g):
+            state.player.move(dx, dy)
+        else:
+            print("Cannot move here")
+
+# Hit kommer vi när while-loopen slutar
     print("Thank you for playing!")
 
 

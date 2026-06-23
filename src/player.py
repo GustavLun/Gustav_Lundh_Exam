@@ -1,3 +1,6 @@
+from grid import Grid
+
+
 class Player:
     marker = "@"
 
@@ -13,8 +16,13 @@ class Player:
         self.pos_x += dx
         self.pos_y += dy
 
-    def can_move(self, x, y, grid):
-        return True
-        #TODO: returnera True om det inte står något i vägen
+    def can_move(self, x, y, grid ): # Skrev om funktionen med nya variablar för ny x och y position.
+        new_x = self.pos_x + x
+        new_y = self.pos_y + y
+        if 34 >= new_x >= 1 and 10 >= new_y >= 1: # Värdena i denna motsvara gränsen på griden som jag hittade efter testning. Funktionen behöver göras om mycket om man vill tillåta att ändra griden i grid klassen.
+            return True
+        else:
+            return False
+
 
 
