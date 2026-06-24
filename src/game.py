@@ -54,8 +54,11 @@ def start(state):
             print("Här är föremålen du plockat på dig:")
             for Item in inventory:
                 print(Item.name)
+        elif command == "q" or command == "x":
+            break
+
         else:
-            print("Invalid move.")
+            print("Invalid command")
             continue
 
 
@@ -74,7 +77,7 @@ def start(state):
             state.player.move(dx, dy)
             state.score -= 1
         else:
-            print("Cannot move here")
+            print("Cannot move here, wall is blocking the path")
 
 # Hit kommer vi när while-loopen slutar
     print("Thank you for playing!")
