@@ -11,6 +11,7 @@ class Item:
 
 
 pickups = [Item("carrot", 10), Item("apple", 20), Item("strawberry", 20), Item("cherry", 20), Item("watermelon", 20), Item("radish", 10), Item("cucumber", 10), Item("meatball", 10)]
+# Jag valde att lägga till value i varje item då jag tyckte det kändes enklare. Jag fick då ta bort de försatta valuet i konstruktorn för class item.
 inventory: list [Item] = []
 
 def randomize(grid):

@@ -19,8 +19,8 @@ class Player:
     def can_move(self, x, y, grid ): # Skrev om funktionen med nya variablar för ny x och y position.
         new_x = self.pos_x + x
         new_y = self.pos_y + y
-        Tile = grid.get(new_x, new_y)
-        if Tile != grid.wall: # Värdena i denna motsvara gränsen på griden som jag hittade efter testning. Funktionen behöver göras om mycket om man vill tillåta att ändra griden i grid klassen.
+        Tile = grid.get(new_x, new_y) # En ny variabel som innehåller hela grid.get(new_x, new_y) som är funktionen för att checka ny position.
+        if Tile != grid.wall: #Om den nya position inte består av en grid.wall skall True returneras, annars False
             return True
         else:
             return False

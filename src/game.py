@@ -12,7 +12,7 @@ from src import pickups
 class GameState:
     """Samla spelets variabler i en klass."""
     def __init__(self):
-        self.player = Player(16, 5) # Ändrade x och Y för att få spelaren att börja närmare mitten.
+        self.player = Player(16, 5) # Ändrade x och Y för att få spelaren att börja närmare mitten av griden.
         self.score = 0
         self.inventory = []
 
@@ -38,7 +38,7 @@ def start(state):
         command = input("Use WASD to move, I to show inventory and Q/X to quit  ")
         command = command.casefold()[:1]
         dx, dy = 0, 0
-        if command == "w":# Funktionen för move player fanns i player men presenterar den mer easily digested
+        if command == "w":# Funktionen för move player fanns i player men valde att presentera den mer easily digested
             dx,dy = 0, -1
 
         elif command == "a":
@@ -73,7 +73,7 @@ def start(state):
             inventory.append(maybe_item)
 
 
-        if state.player.can_move(dx, dy, state.g):
+        if state.player.can_move(dx, dy, state.g): # om denna returnerar True kommer spelaren flytta sig samt ett poäng kommer dras bort.
             state.player.move(dx, dy)
             state.score -= 1 # Floor is lava, alla steg spelaren kan ta minskar score med 1.
         else:
