@@ -40,7 +40,7 @@ def start(state):
         dx, dy = 0, 0
         if command == "w":# Funktionen för move player fanns i player men presenterar den mer easily digested
             dx,dy = 0, -1
-             # Floor is lava, alla steg spelaren ta minskar score med 1.
+
         elif command == "a":
             dx,dy = -1, 0
 
@@ -75,7 +75,7 @@ def start(state):
 
         if state.player.can_move(dx, dy, state.g):
             state.player.move(dx, dy)
-            state.score -= 1
+            state.score -= 1 # Floor is lava, alla steg spelaren kan ta minskar score med 1.
         else:
             print("Cannot move here, wall is blocking the path")
 
