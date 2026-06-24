@@ -8,7 +8,7 @@ from src.player import Player
 from src import pickups
 
 
-# TODO: flytta denna till en annan fil
+
 class GameState:
     """Samla spelets variabler i en klass."""
     def __init__(self):
