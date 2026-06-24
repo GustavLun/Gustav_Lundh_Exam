@@ -35,7 +35,7 @@ Här kan du skriva vilka kriterier du har arbetat med.
 |E        | ✅      |
 |F        | ✅      |
 |G        | ✅      |
-|H        |        |
+|H        | ✅      |
 
 |Version 2|Status|
 |---------|------|

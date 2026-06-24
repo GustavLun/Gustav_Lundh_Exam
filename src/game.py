@@ -40,16 +40,16 @@ def start(state):
         dx, dy = 0, 0
         if command == "w":# Funktionen för move player fanns i player men presenterar den mer easily digested
             dx,dy = 0, -1
-            state.score -= 1 # Floor is lava, alla steg spelaren ta minskar score med 1.
+             # Floor is lava, alla steg spelaren ta minskar score med 1.
         elif command == "a":
             dx,dy = -1, 0
-            state.score -= 1
+
         elif command == "s":
             dx,dy = 0,1
-            state.score -= 1
+
         elif command == "d":
             dx,dy = 1,0
-            state.score -= 1
+
         elif command == "i":
             print("Här är föremålen du plockat på dig:")
             for Item in inventory:
@@ -72,6 +72,7 @@ def start(state):
 
         if state.player.can_move(dx, dy, state.g):
             state.player.move(dx, dy)
+            state.score -= 1
         else:
             print("Cannot move here")
 
